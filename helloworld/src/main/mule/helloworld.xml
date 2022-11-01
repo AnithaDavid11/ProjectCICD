@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="9a6a5e9b-3d32-4db2-8a98-82d439d14645" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="helloworldFlow" doc:id="055dc163-f209-4c0c-8120-69e11d47751d" >
+		<http:listener doc:name="Listener" doc:id="1c850ba9-08d4-49c2-8180-50e50b7a1508" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6b79e0d3-6d6e-4232-bdcd-7527cb4c153d" message='#["Hi i am Main flow"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="915ba47b-2f52-48d4-a41c-e7d90df7e256" name="helloworldSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="5d81d431-25e9-4183-a67c-10e0ecdfcf33" name="helloworldFlow1"/>
+		<set-variable value="190" doc:name="Set Variable" doc:id="b351035d-8fa2-4af5-bbc9-399184e0641d" variableName="id"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a7d07092-e0d4-4c96-8372-1191bb3e46b1" message='#["End of main flow"]'/>
+	</flow>
+	<flow name="helloworldFlow1" doc:id="ab4b45e5-7619-4b06-a530-8a9ff508c16b" >
+		<logger level="INFO" doc:name="Logger" doc:id="9a4e9152-2ad3-4984-962c-9b216f9c806e" message='#["This is a private flow"]'/>
+		<ee:transform doc:name="Transform Message" doc:id="9a173004-24b5-46e6-920c-6ed570a5affe" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<sub-flow name="helloworldSub_Flow" doc:id="b02e7ddd-9c7b-4941-95ae-ab9e6a265dd8" >
+		<logger level="INFO" doc:name="Logger" doc:id="7ec86a67-b5ab-4054-aac9-600d74a46f73" message='#["Hi i am sub-flow"]'/>
+	</sub-flow>
+</mule>
