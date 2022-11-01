@@ -16,6 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="Flow Reference" doc:id="5d81d431-25e9-4183-a67c-10e0ecdfcf33" name="helloworldFlow1"/>
 		<set-variable value="190" doc:name="Set Variable" doc:id="b351035d-8fa2-4af5-bbc9-399184e0641d" variableName="id"/>
 		<logger level="INFO" doc:name="Logger" doc:id="a7d07092-e0d4-4c96-8372-1191bb3e46b1" message='#["End of main flow"]'/>
+		<logger level="INFO" doc:name="Logger" doc:id="5b1553f4-0aab-47fd-854e-298556312ec0" message="End logger"/>
 	</flow>
 	<flow name="helloworldFlow1" doc:id="ab4b45e5-7619-4b06-a530-8a9ff508c16b" >
 		<logger level="INFO" doc:name="Logger" doc:id="9a4e9152-2ad3-4984-962c-9b216f9c806e" message='#["This is a private flow"]'/>
